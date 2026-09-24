@@ -1,15 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes - Kebun Raya Mangrove (KRM) Surabaya
-|--------------------------------------------------------------------------
-| Website frontend-only (Blade + HTML5 + CSS3 + JS vanilla + Bootstrap 5).
-| Tidak ada database, API, auth, maupun admin panel. Setiap route hanya
-| mengembalikan view statis dengan konten berbahasa Indonesia.
-*/
 
 Route::view('/', 'pages.home')->name('home');
 
@@ -33,4 +25,26 @@ Route::view('/terangin', 'pages.terangin')->name('terangin');
 
 Route::view('/hubungi-kami', 'pages.hubungi-kami')->name('hubungi-kami');
 
-Route::view('/login', 'pages.auth.login')->name('login');
+Route::get('/admin-dashboard', function () {
+        return view('pages.admin.dashboard');
+    })->name('admin.dashboard');
+
+Route::get('/dokumentasi', function () {
+        return view('pages.admin.dokumentasi');
+    })->name('dokumentasi');
+
+Route::get('/tambah-program', function () {
+        return view('pages.admin.tambahprogram');
+    })->name('tambah-program');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
