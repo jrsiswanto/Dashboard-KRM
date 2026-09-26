@@ -122,10 +122,10 @@
                     Status Program KRM
                 </h2>
 
-                <a href="#"
+                <a href="{{ route('admin.program') }}"
                    class="flex items-center gap-1 text-xs font-medium text-primary transition-colors hover:text-on-primary-fixed-variant">
 
-                    Lihat Semua
+                    Liat Semua
 
                     <span class="material-symbols-outlined text-[16px]">
                         arrow_forward
@@ -148,15 +148,11 @@
                             </th>
 
                             <th class="px-unit-lg py-unit-sm">
-                                Kategori
+                                Deskripsi
                             </th>
 
                             <th class="px-unit-lg py-unit-sm">
                                 Status
-                            </th>
-
-                            <th class="px-unit-lg py-unit-sm text-right">
-                                Aksi
                             </th>
                         </tr>
 
@@ -174,12 +170,13 @@
                                 </td>
 
                                 <td class="px-unit-lg py-unit-md text-on-surface-variant">
-                                    {{ $program->kategori }}
+                                    {{ Str::words($program->deskripsi, 5, '...') }}
                                 </td>
 
                                 <td class="px-unit-lg py-unit-md">
 
-                                    @if ($program->status === 'published')
+                                    {{-- Penyesuaian pengecekan boolean status --}}
+                                    @if ($program->status)
 
                                         <span class="inline-flex rounded-full bg-primary/10 px-2 py-1 text-[10px] font-bold uppercase text-primary">
                                             Published
@@ -192,19 +189,6 @@
                                         </span>
 
                                     @endif
-
-                                </td>
-
-                                <td class="px-unit-lg py-unit-md text-right">
-
-                                    <a href="#"
-                                       class="text-on-surface-variant transition-colors hover:text-primary">
-
-                                        <span class="material-symbols-outlined text-[18px]">
-                                            edit
-                                        </span>
-
-                                    </a>
 
                                 </td>
 
@@ -329,7 +313,7 @@
                 Tindakan Cepat
             </h2>
 
-            <a href="#"
+            <a href="{{ route('activity.index', ['create' => 'true']) }}"
                class="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-xs font-medium uppercase tracking-widest text-on-primary shadow-sm transition-colors hover:bg-primary-container">
 
                 <span class="material-symbols-outlined text-[18px]">
@@ -341,14 +325,14 @@
             </a>
 
 
-            <a href="#"
+            <a href="{{ route('admin.csr') }}"
                class="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-primary bg-transparent px-4 py-3 text-xs font-medium uppercase tracking-widest text-primary transition-colors hover:bg-surface-container">
 
                 <span class="material-symbols-outlined text-[18px]">
                     description
                 </span>
 
-                Buat Laporan CSR
+                Laporan CSR
 
             </a>
 
@@ -387,8 +371,9 @@
                                 {{ $aktivitas->deskripsi }}
                             </p>
 
+                            {{-- Penyesuaian pembacaan kolom tanggal dengan Carbon --}}
                             <span class="text-xs text-on-surface-variant">
-                                {{ $aktivitas->created_at?->diffForHumans() }}
+                                {{ \Carbon\Carbon::parse($aktivitas->tanggal)->diffForHumans() }}
                             </span>
 
                         </div>
@@ -406,19 +391,17 @@
             </div>
 
 
-            <button
-                type="button"
+            <a
+                href="{{ route('activity.index', ['create' => 'true']) }}"
                 class="mt-unit-lg w-full rounded-lg py-2 text-center text-xs font-medium text-primary transition-colors hover:bg-surface-container">
 
                 Muat Lebih Banyak
 
-            </button>
+            </a>
 
         </div>
 
     </div>
 
 </div>
-```
-
 @endsection

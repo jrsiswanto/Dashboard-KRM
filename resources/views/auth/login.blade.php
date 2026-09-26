@@ -6,16 +6,23 @@
         <p class="text-base text-on-surface-variant">Portal Pengelolaan dan Monitoring Konservasi Mangrove</p>
     </div>
 
-    <!-- Alert Status & Error bawaan Breeze -->
+    <!-- Alert Status (Bawaan Breeze untuk sukses reset password dll) -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    <!-- CUSTOM ALERT JIKA LOGIN GAGAL ATAU VALIDASI SALAH -->
     @if ($errors->any())
         <div class="mb-6 p-4 bg-error-container border border-error/20 rounded-lg flex gap-3 shadow-sm">
             <span class="material-symbols-outlined text-on-error-container shrink-0">error</span>
             <div class="text-sm leading-relaxed text-on-error-container">
-                @foreach ($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                @endforeach
+                {{-- Jika error berasal dari salah email/password --}}
+                @if($errors->has('email'))
+                    <p>Email atau password yang Anda masukkan salah. Silakan periksa kembali.</p>
+                @else
+                    {{-- Menampilkan error validasi lainnya --}}
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                @endif
             </div>
         </div>
     @endif
@@ -27,6 +34,7 @@
         <div class="space-y-2">
             <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-on-surface">Email</label>
             <div class="relative">
+                <!-- type="email" otomatis memastikan input memiliki karakter '@' -->
                 <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Masukkan email admin" class="w-full h-12 px-4 pr-12 bg-white border border-outline-variant rounded-lg text-sm text-on-surface placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#004d35]/20 focus:border-[#004d35] transition">
                 <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant">person</span>
             </div>
@@ -40,7 +48,8 @@
                 @endif
             </div>
             <div class="relative">
-                <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="Masukkan password" class="w-full h-12 px-4 pr-12 bg-white border border-outline-variant rounded-lg text-sm text-on-surface placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#004d35]/20 focus:border-[#004d35] transition">
+                <!-- Tambahan minlength="6" memastikan user mengetik minimal 6 karakter -->
+                <input id="password" name="password" type="password" minlength="6" required autocomplete="current-password" placeholder="Masukkan password" class="w-full h-12 px-4 pr-12 bg-white border border-outline-variant rounded-lg text-sm text-on-surface placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#004d35]/20 focus:border-[#004d35] transition">
                 
                 <button type="button" onclick="const p = document.getElementById('password'); const i = document.getElementById('passwordIcon'); if(p.type === 'password'){ p.type = 'text'; i.innerText = 'visibility_off'; } else { p.type = 'password'; i.innerText = 'visibility'; }" class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-md text-on-surface-variant hover:text-on-surface hover:bg-gray-100 transition">
                     <span id="passwordIcon" class="material-symbols-outlined text-xl">visibility</span>
@@ -57,12 +66,12 @@
             <span>Masuk</span>
             <span class="material-symbols-outlined text-lg">login</span>
         </button>
-    </form>
 
-            <!-- Link ke Halaman Login -->
+        <!-- Link ke Halaman Register -->
         <div class="text-center mt-4">
             <span class="text-sm text-on-surface-variant">Belum Punya Akun?</span>
             <a href="{{ route('register') }}" class="text-sm font-semibold text-primary hover:text-primary-container transition ml-1">Daftar di sini</a>
         </div>
+        
     </form>
 </x-guest-layout>

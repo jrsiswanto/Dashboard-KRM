@@ -4,267 +4,293 @@
 
 @section('content')
 
-<div class="flex flex-col w-full h-full relative">
-
-    {{-- Header Halaman --}}
-    <div class="px-margin-page py-unit-xl flex justify-between items-start md:items-end relative z-10 flex-col md:flex-row gap-4">
+    {{-- ========================================================= --}}
+    {{-- PAGE HEADER --}}
+    {{-- ========================================================= --}}
+    <div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h1 class="font-display-lg text-display-lg text-on-surface mb-unit-sm">
+            <span class="text-xs font-semibold uppercase tracking-widest text-primary">Arsip Media</span>
+            <h1 class="text-3xl font-bold tracking-tight text-on-surface mt-1">
                 Dokumentasi
             </h1>
-
-            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-                Arsip media KRM Surabaya, mencakup konservasi mangrove,
-                program CSR panel surya, dan dokumentasi keanekaragaman hayati.
+            <p class="text-sm text-on-surface-variant mt-1 max-w-2xl">
+                Arsip media KRM Surabaya, mencakup konservasi mangrove, program CSR, dan dokumentasi keanekaragaman hayati.
             </p>
         </div>
 
-        <button
-            class="bg-primary hover:bg-primary-fixed-variant text-on-primary px-6 py-3 rounded-lg flex items-center gap-2 transition-colors shadow-sm font-label-md uppercase tracking-wider text-center leading-tight">
-            <span class="material-symbols-outlined text-[20px]">
-                upload
-            </span>
-            <span class="text-left">
-                UNGGAH<br>DOKUMENTASI
-            </span>
+        <button type="button" class="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-on-primary shadow-sm transition-colors hover:bg-primary-container">
+            <span class="material-symbols-outlined text-[18px]">upload</span>
+            Unggah Dokumentasi
         </button>
     </div>
 
 
-    {{-- Filter & Search Section --}}
-    <div class="px-margin-page mb-unit-xl relative z-10">
-        <div class="bg-surface-container rounded-xl p-4 flex flex-col gap-4 shadow-sm">
+    {{-- ========================================================= --}}
+    {{-- FILTER & SEARCH SECTION --}}
+    {{-- ========================================================= --}}
+    <div class="mb-6 flex flex-col gap-4 rounded-xl border border-outline-variant bg-surface-container-lowest p-4 shadow-sm">
+        
+        {{-- Search Input --}}
+        <div class="relative w-full">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-on-surface-variant">search</span>
+            <input type="text" placeholder="Cari nama file, program, atau uploader..." class="w-full rounded-lg border border-outline-variant bg-surface-container-low py-2.5 pl-10 pr-4 text-sm text-on-surface placeholder:text-on-surface-variant/60 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
+        </div>
 
-            {{-- Search Bar (Baris Atas) --}}
-            <div class="w-full">
-                <div class="relative flex items-center bg-surface rounded-lg px-3 border border-outline-variant focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all h-11">
-                    <span class="material-symbols-outlined text-on-surface-variant mr-2 text-[20px]">
-                        search
-                    </span>
-                    <input
-                        type="text"
-                        placeholder="Cari nama file, program, atau uploader..."
-                        class="bg-transparent border-none focus:ring-0 font-body-md text-on-surface w-full h-full outline-none placeholder:text-on-surface-variant/50"
-                    >
-                </div>
-            </div>
-
-            {{-- Filter & View Toggle (Baris Bawah) --}}
-            <div class="flex flex-wrap justify-between items-center gap-4 w-full">
-                
-                {{-- Dropdowns --}}
-                <div class="flex flex-wrap items-center gap-3">
-                    <select class="h-11 bg-surface border border-outline-variant rounded-lg px-4 font-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none cursor-pointer appearance-none pr-10 min-w-[160px]">
+        {{-- Controls Bar --}}
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            
+            {{-- Dropdowns --}}
+            <div class="flex flex-wrap items-center gap-3">
+                <div class="relative min-w-[160px]">
+                    <select class="w-full appearance-none rounded-lg border border-outline-variant bg-surface-container-low py-2 pl-4 pr-10 text-xs text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer">
                         <option value="">Semua Program</option>
                         <option value="mangrove">Konservasi Mangrove</option>
                         <option value="solar">Solar Panel CSR</option>
                         <option value="biodiversity">Keanekaragaman Hayati</option>
                     </select>
+                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[18px] text-on-surface-variant pointer-events-none">expand_more</span>
+                </div>
 
-                    <select class="h-11 bg-surface border border-outline-variant rounded-lg px-4 font-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none cursor-pointer appearance-none pr-10 min-w-[160px]">
+                <div class="relative min-w-[150px]">
+                    <select class="w-full appearance-none rounded-lg border border-outline-variant bg-surface-container-low py-2 pl-4 pr-10 text-xs text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer">
                         <option value="">Semua Media</option>
                         <option value="image">Foto</option>
                         <option value="video">Video</option>
                         <option value="document">Dokumen</option>
                     </select>
-
-                    <div class="relative flex items-center bg-surface border border-outline-variant rounded-lg h-11 px-4 cursor-pointer group hover:border-primary transition-colors">
-                        <span class="material-symbols-outlined text-on-surface-variant mr-2 text-[20px] group-hover:text-primary transition-colors">
-                            calendar_today
-                        </span>
-                        <span class="font-body-md text-on-surface select-none">
-                            Pilih Tanggal
-                        </span>
-                    </div>
+                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[18px] text-on-surface-variant pointer-events-none">expand_more</span>
                 </div>
 
-                {{-- Grid / Table Toggle --}}
-                <div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-lg border border-outline-variant">
-                    <button class="p-1.5 rounded-md bg-surface shadow-sm text-primary transition-all flex items-center justify-center" id="view-grid">
-                        <span class="material-symbols-outlined text-[20px]">
-                            grid_view
-                        </span>
-                    </button>
-                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all flex items-center justify-center" id="view-table">
-                        <span class="material-symbols-outlined text-[20px]">
-                            view_list
-                        </span>
-                    </button>
+                <div class="relative min-w-[150px]">
+                    <input type="date" class="w-full rounded-lg border border-outline-variant bg-surface-container-low py-1.5 px-3 text-xs text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer">
                 </div>
-
             </div>
+
+            {{-- Grid / Table Switcher --}}
+            <div class="flex items-center gap-1 rounded-lg border border-outline-variant bg-surface-container-low p-1">
+                <button type="button" id="view-grid" class="flex h-8 w-8 items-center justify-center rounded-md bg-surface text-primary shadow-sm transition-all" title="Tampilan Grid">
+                    <span class="material-symbols-outlined text-[18px]">grid_view</span>
+                </button>
+                <button type="button" id="view-table" class="flex h-8 w-8 items-center justify-center rounded-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" title="Tampilan Tabel">
+                    <span class="material-symbols-outlined text-[18px]">view_list</span>
+                </button>
+            </div>
+
         </div>
     </div>
 
 
-    {{-- Grid Dokumentasi --}}
-    <div class="px-margin-page pb-unit-xl flex-1 relative z-10">
+    {{-- ========================================================= --}}
+    {{-- GRID VIEW DOKUMENTASI --}}
+    {{-- ========================================================= --}}
+    <div id="grid-view" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 transition-all duration-300">
 
-        <div id="grid-view" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-opacity duration-300">
-
-            {{-- Dokumentasi 1 --}}
-            <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm group hover:shadow-md transition-all duration-300 flex flex-col h-full border border-outline-variant">
-                <div class="relative aspect-video w-full overflow-hidden bg-surface-container">
-                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPWDFLecW3rCZRkuNFz6twsr2wwGMu7rj0FOhwUhTfbZg9cfEUZE70z0wanqfkwlw6L4HZLcP18Uc4zeysWhl07BoDU6Dsq8Ao9sb1W-k7UZAGxF23gVGdLkUqSWwQcPQSGno3Elp2qRQ-cVlgfEmKRZxkqQqST0qadiktWeiAJ3Tg2Ru2djG9NNgK5zpnINJg_9TQaV8rAY5hmigESPg5ItmAJSdOjKKabBMq6v6R5tyzCxBH3O-Y_w"
-                         alt="Dokumentasi akar mangrove">
-                    <div class="absolute top-3 left-3 bg-black/40 backdrop-blur-sm px-2 py-1 rounded text-white flex items-center gap-1 shadow-sm">
-                        <span class="material-symbols-outlined text-[14px]">image</span>
-                        <span class="font-label-md text-xs">JPG</span>
-                    </div>
-                </div>
-
-                <div class="p-4 flex flex-col flex-1">
-                    <div class="flex justify-between items-start mb-1">
-                        <h3 class="font-title-lg text-title-lg text-on-surface line-clamp-1 group-hover:text-primary transition-colors pr-2">
-                            Akar_Napas_Rhizopho
-                        </h3>
-                        <button class="text-on-surface-variant hover:text-on-surface transition-colors flex-shrink-0">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </div>
-
-                    <p class="font-label-md text-label-md text-primary tracking-wider uppercase mb-4">
-                        Konservasi Mangrove
-                    </p>
-
-                    <div class="mt-auto flex justify-between items-center pt-2">
-                        <span class="font-body-md text-on-surface-variant text-sm">
-                            24 Okt 2023
-                        </span>
-                        <span class="font-label-md bg-primary-fixed/30 text-primary-fixed-dim px-2 py-0.5 rounded-md text-xs font-semibold">
-                            Publik
-                        </span>
-                    </div>
+        {{-- Card 1 --}}
+        <div class="group flex flex-col overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm transition-all hover:shadow-md">
+            <div class="relative aspect-video w-full overflow-hidden bg-surface-container-low">
+                <img class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPWDFLecW3rCZRkuNFz6twsr2wwGMu7rj0FOhwUhTfbZg9cfEUZE70z0wanqfkwlw6L4HZLcP18Uc4zeysWhl07BoDU6Dsq8Ao9sb1W-k7UZAGxF23gVGdLkUqSWwQcPQSGno3Elp2qRQ-cVlgfEmKRZxkqQqST0qadiktWeiAJ3Tg2Ru2djG9NNgK5zpnINJg_9TQaV8rAY5hmigESPg5ItmAJSdOjKKabBMq6v6R5tyzCxBH3O-Y_w"
+                     alt="Akar Napas Rhizophora">
+                <div class="absolute left-3 top-3 flex items-center gap-1 rounded bg-black/50 px-2 py-0.5 text-white backdrop-blur-sm shadow-sm">
+                    <span class="material-symbols-outlined text-[14px]">image</span>
+                    <span class="text-[10px] font-semibold uppercase">JPG</span>
                 </div>
             </div>
 
-            {{-- Dokumentasi 2 --}}
-            <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm group hover:shadow-md transition-all duration-300 flex flex-col h-full border border-outline-variant">
-                <div class="relative aspect-video w-full overflow-hidden bg-surface-container">
-                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOuQfd298AFy5TaLywbcORk55tWQisFFGZDmiuoDmoUVfCvfgnwRX-pX8fY5vZpx31EwxHMWxIrky-nwcffmHfaOZrp6Mb3mmj9jtk-16qtKLbwWKopJ8oejkfvB0jIwc0Rl33MiH7BRZMXMeAH60fraNd1Q-6qvrMMXqVoSSFK5xWqhjH33zgJZHPMJrTUK0gGrpScOSkl7oIkIeYSaGszFAlGrHXSQlSBzKoP26WICBUbkx2MpR6kw"
-                         alt="Dokumentasi solar panel">
-                    <div class="absolute inset-0 flex items-center justify-center bg-black/10">
-                        <div class="w-12 h-12 rounded-full bg-black/40 backdrop-blur flex items-center justify-center text-white">
-                            <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
-                        </div>
-                    </div>
-                    <div class="absolute top-3 left-3 bg-black/40 backdrop-blur-sm px-2 py-1 rounded text-white flex items-center gap-1 shadow-sm">
-                        <span class="material-symbols-outlined text-[14px]">movie</span>
-                        <span class="font-label-md text-xs">MP4</span>
-                    </div>
-                    <div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-white text-xs font-label-md shadow-sm">
-                        03:45
-                    </div>
+            <div class="flex flex-1 flex-col p-4">
+                <div class="mb-1 flex items-start justify-between">
+                    <h3 class="line-clamp-1 text-sm font-semibold text-on-surface transition-colors group-hover:text-primary" title="Akar_Napas_Rhizophora.jpg">
+                        Akar_Napas_Rhizophora
+                    </h3>
+                    <button type="button" class="text-on-surface-variant hover:text-on-surface transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
                 </div>
 
-                <div class="p-4 flex flex-col flex-1">
-                    <div class="flex justify-between items-start mb-1">
-                        <h3 class="font-title-lg text-title-lg text-on-surface line-clamp-1 group-hover:text-primary transition-colors pr-2">
-                            Drone_Solar_Array_Fin
-                        </h3>
-                        <button class="text-on-surface-variant hover:text-on-surface transition-colors flex-shrink-0">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </div>
+                <p class="mb-4 text-xs font-semibold uppercase tracking-wider text-primary">
+                    Konservasi Mangrove
+                </p>
 
-                    <p class="font-label-md text-label-md text-primary tracking-wider uppercase mb-4">
-                        Solar Panel CSR
-                    </p>
-
-                    <div class="mt-auto flex justify-between items-center pt-2">
-                        <span class="font-body-md text-on-surface-variant text-sm">
-                            22 Okt 2023
-                        </span>
-                        <span class="font-label-md bg-secondary-container/50 text-on-secondary-container px-2 py-0.5 rounded-md text-xs font-semibold">
-                            Internal
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Dokumentasi 3 --}}
-            <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm group hover:shadow-md transition-all duration-300 flex flex-col h-full border border-outline-variant">
-                <div class="relative aspect-video w-full overflow-hidden bg-surface-container flex items-center justify-center bg-gray-100">
-                    <span class="material-symbols-outlined text-[64px] text-gray-400">
-                        picture_as_pdf
+                <div class="mt-auto flex items-center justify-between border-t border-outline-variant/40 pt-3">
+                    <span class="text-xs text-on-surface-variant">
+                        24 Okt 2023
                     </span>
-                    <div class="absolute top-3 left-3 bg-gray-200/90 backdrop-blur-sm px-2 py-1 rounded text-gray-700 flex items-center gap-1 shadow-sm">
-                        <span class="material-symbols-outlined text-[14px]">description</span>
-                        <span class="font-label-md text-xs">PDF</span>
-                    </div>
-                </div>
-
-                <div class="p-4 flex flex-col flex-1">
-                    <div class="flex justify-between items-start mb-1">
-                        <h3 class="font-title-lg text-title-lg text-on-surface line-clamp-1 group-hover:text-primary transition-colors pr-2">
-                            Laporan_Inventarisasi_
-                        </h3>
-                        <button class="text-on-surface-variant hover:text-on-surface transition-colors flex-shrink-0">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </div>
-
-                    <p class="font-label-md text-label-md text-primary tracking-wider uppercase mb-4">
-                        Keanekaragaman Hayati
-                    </p>
-
-                    <div class="mt-auto flex justify-between items-center pt-2">
-                        <span class="font-body-md text-on-surface-variant text-sm">
-                            18 Okt 2023
-                        </span>
-                        <span class="font-label-md bg-error-container/30 text-on-error-container px-2 py-0.5 rounded-md text-xs font-semibold">
-                            Rahasia
-                        </span>
-                    </div>
+                    <span class="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase text-primary">
+                        Publik
+                    </span>
                 </div>
             </div>
-
-            {{-- Dokumentasi 4 --}}
-            <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm group hover:shadow-md transition-all duration-300 flex flex-col h-full border border-outline-variant">
-                <div class="relative aspect-video w-full overflow-hidden bg-surface-container">
-                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn43xekM-OeXZXOQFJcdCrcijyLixJe1xnZV3CmRnEWrlEihDBeyqM5VKxLZMzlP7NdmUnLdbwPO9tTIzHfb-xmSNieYS997oVBNPJ1v05N3n0gTIg93kpDstJ4bRNoVOTZRjjyVPExKKsNKErupfK-EeJFDbpMmETfLijF6lRTuywm9ZNP2RXMYX5P5hO7LVqGrLZT55FIAUrz4cxhv-AZUNBe3B1U1865ZT4adMKJXs0VcNSfUrvbw"
-                         alt="Dokumentasi fauna ikan glodok">
-                    <div class="absolute top-3 left-3 bg-black/40 backdrop-blur-sm px-2 py-1 rounded text-white flex items-center gap-1 shadow-sm">
-                        <span class="material-symbols-outlined text-[14px]">image</span>
-                        <span class="font-label-md text-xs">JPG</span>
-                    </div>
-                </div>
-
-                <div class="p-4 flex flex-col flex-1">
-                    <div class="flex justify-between items-start mb-1">
-                        <h3 class="font-title-lg text-title-lg text-on-surface line-clamp-1 group-hover:text-primary transition-colors pr-2">
-                            Fauna_Ikan_Glodok_Ma
-                        </h3>
-                        <button class="text-on-surface-variant hover:text-on-surface transition-colors flex-shrink-0">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </div>
-
-                    <p class="font-label-md text-label-md text-primary tracking-wider uppercase mb-4">
-                        Keanekaragaman Hayati
-                    </p>
-
-                    <div class="mt-auto flex justify-between items-center pt-2">
-                        <span class="font-body-md text-on-surface-variant text-sm">
-                            15 Okt 2023
-                        </span>
-                        <span class="font-label-md bg-primary-fixed/30 text-primary-fixed-dim px-2 py-0.5 rounded-md text-xs font-semibold">
-                            Publik
-                        </span>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
-        {{-- Table View (Tetap Dipertahankan) --}}
-        <!-- Pastikan menyertakan kode #table-view persis seperti yang Anda miliki sebelumnya di sini -->
+        {{-- Card 2 --}}
+        <div class="group flex flex-col overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm transition-all hover:shadow-md">
+            <div class="relative aspect-video w-full overflow-hidden bg-surface-container-low">
+                <img class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOuQfd298AFy5TaLywbcORk55tWQisFFGZDmiuoDmoUVfCvfgnwRX-pX8fY5vZpx31EwxHMWxIrky-nwcffmHfaOZrp6Mb3mmj9jtk-16qtKLbwWKopJ8oejkfvB0jIwc0Rl33MiH7BRZMXMeAH60fraNd1Q-6qvrMMXqVoSSFK5xWqhjH33zgJZHPMJrTUK0gGrpScOSkl7oIkIeYSaGszFAlGrHXSQlSBzKoP26WICBUbkx2MpR6kw"
+                     alt="Drone Solar Array">
+                <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm">
+                        <span class="material-symbols-outlined text-[20px]">play_arrow</span>
+                    </div>
+                </div>
+                <div class="absolute left-3 top-3 flex items-center gap-1 rounded bg-black/50 px-2 py-0.5 text-white backdrop-blur-sm shadow-sm">
+                    <span class="material-symbols-outlined text-[14px]">movie</span>
+                    <span class="text-[10px] font-semibold uppercase">MP4</span>
+                </div>
+                <div class="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
+                    03:45
+                </div>
+            </div>
+
+            <div class="flex flex-1 flex-col p-4">
+                <div class="mb-1 flex items-start justify-between">
+                    <h3 class="line-clamp-1 text-sm font-semibold text-on-surface transition-colors group-hover:text-primary" title="Drone_Solar_Array_Final.mp4">
+                        Drone_Solar_Array_Final
+                    </h3>
+                    <button type="button" class="text-on-surface-variant hover:text-on-surface transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                </div>
+
+                <p class="mb-4 text-xs font-semibold uppercase tracking-wider text-primary">
+                    Solar Panel CSR
+                </p>
+
+                <div class="mt-auto flex items-center justify-between border-t border-outline-variant/40 pt-3">
+                    <span class="text-xs text-on-surface-variant">
+                        22 Okt 2023
+                    </span>
+                    <span class="inline-flex items-center rounded-full bg-secondary-container/50 px-2 py-0.5 text-[10px] font-semibold uppercase text-on-secondary-container">
+                        Internal
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        {{-- Card 3 --}}
+        <div class="group flex flex-col overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm transition-all hover:shadow-md">
+            <div class="relative flex aspect-video w-full items-center justify-center bg-surface-container-low">
+                <span class="material-symbols-outlined text-[48px] text-on-surface-variant/40">picture_as_pdf</span>
+                <div class="absolute left-3 top-3 flex items-center gap-1 rounded bg-surface-container-high px-2 py-0.5 text-on-surface-variant shadow-sm border border-outline-variant">
+                    <span class="material-symbols-outlined text-[14px]">description</span>
+                    <span class="text-[10px] font-semibold uppercase">PDF</span>
+                </div>
+            </div>
+
+            <div class="flex flex-1 flex-col p-4">
+                <div class="mb-1 flex items-start justify-between">
+                    <h3 class="line-clamp-1 text-sm font-semibold text-on-surface transition-colors group-hover:text-primary" title="Laporan_Inventarisasi_Flora.pdf">
+                        Laporan_Inventarisasi_Flora
+                    </h3>
+                    <button type="button" class="text-on-surface-variant hover:text-on-surface transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                </div>
+
+                <p class="mb-4 text-xs font-semibold uppercase tracking-wider text-primary">
+                    Keanekaragaman Hayati
+                </p>
+
+                <div class="mt-auto flex items-center justify-between border-t border-outline-variant/40 pt-3">
+                    <span class="text-xs text-on-surface-variant">
+                        18 Okt 2023
+                    </span>
+                    <span class="inline-flex items-center rounded-full bg-error-container/30 px-2 py-0.5 text-[10px] font-semibold uppercase text-on-error-container">
+                        Rahasia
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        {{-- Card 4 --}}
+        <div class="group flex flex-col overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm transition-all hover:shadow-md">
+            <div class="relative aspect-video w-full overflow-hidden bg-surface-container-low">
+                <img class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn43xekM-OeXZXOQFJcdCrcijyLixJe1xnZV3CmRnEWrlEihDBeyqM5VKxLZMzlP7NdmUnLdbwPO9tTIzHfb-xmSNieYS997oVBNPJ1v05N3n0gTIg93kpDstJ4bRNoVOTZRjjyVPExKKsNKErupfK-EeJFDbpMmETfLijF6lRTuywm9ZNP2RXMYX5P5hO7LVqGrLZT55FIAUrz4cxhv-AZUNBe3B1U1865ZT4adMKJXs0VcNSfUrvbw"
+                     alt="Fauna Ikan Glodok">
+                <div class="absolute left-3 top-3 flex items-center gap-1 rounded bg-black/50 px-2 py-0.5 text-white backdrop-blur-sm shadow-sm">
+                    <span class="material-symbols-outlined text-[14px]">image</span>
+                    <span class="text-[10px] font-semibold uppercase">JPG</span>
+                </div>
+            </div>
+
+            <div class="flex flex-1 flex-col p-4">
+                <div class="mb-1 flex items-start justify-between">
+                    <h3 class="line-clamp-1 text-sm font-semibold text-on-surface transition-colors group-hover:text-primary" title="Fauna_Ikan_Glodok_Mangrove.jpg">
+                        Fauna_Ikan_Glodok_Mangrove
+                    </h3>
+                    <button type="button" class="text-on-surface-variant hover:text-on-surface transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                </div>
+
+                <p class="mb-4 text-xs font-semibold uppercase tracking-wider text-primary">
+                    Keanekaragaman Hayati
+                </p>
+
+                <div class="mt-auto flex items-center justify-between border-t border-outline-variant/40 pt-3">
+                    <span class="text-xs text-on-surface-variant">
+                        15 Okt 2023
+                    </span>
+                    <span class="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase text-primary">
+                        Publik
+                    </span>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-</div>
+
+    {{-- ========================================================= --}}
+    {{-- TABLE VIEW DOKUMENTASI (PILIHAN TAMPILAN TABEL) --}}
+    {{-- ========================================================= --}}
+    <div id="table-view" class="hidden overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm transition-all duration-300 opacity-0">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[800px]">
+                <thead class="bg-surface-container-low/50 text-xs font-semibold uppercase tracking-wider text-on-surface-variant border-b border-outline-variant">
+                    <tr>
+                        <th class="px-6 py-3.5">Nama Media</th>
+                        <th class="px-6 py-3.5">Program</th>
+                        <th class="px-6 py-3.5">Tipe</th>
+                        <th class="px-6 py-3.5">Tanggal</th>
+                        <th class="px-6 py-3.5">Akses</th>
+                        <th class="px-6 py-3.5 text-right">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-outline-variant/50 text-sm text-on-surface">
+                    <tr class="group transition-colors hover:bg-surface-container-low">
+                        <td class="px-6 py-4 font-medium text-on-surface group-hover:text-primary">Akar_Napas_Rhizophora.jpg</td>
+                        <td class="px-6 py-4 text-on-surface-variant">Konservasi Mangrove</td>
+                        <td class="px-6 py-4 text-xs uppercase font-semibold text-on-surface-variant">JPG</td>
+                        <td class="px-6 py-4 text-xs text-on-surface-variant">24 Okt 2023</td>
+                        <td class="px-6 py-4">
+                            <span class="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold uppercase text-primary">Publik</span>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <button type="button" class="rounded-lg p-1.5 text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="group transition-colors hover:bg-surface-container-low">
+                        <td class="px-6 py-4 font-medium text-on-surface group-hover:text-primary">Drone_Solar_Array_Final.mp4</td>
+                        <td class="px-6 py-4 text-on-surface-variant">Solar Panel CSR</td>
+                        <td class="px-6 py-4 text-xs uppercase font-semibold text-on-surface-variant">MP4</td>
+                        <td class="px-6 py-4 text-xs text-on-surface-variant">22 Okt 2023</td>
+                        <td class="px-6 py-4">
+                            <span class="inline-flex items-center rounded-full bg-secondary-container/50 px-2.5 py-0.5 text-xs font-semibold uppercase text-on-secondary-container">Internal</span>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <button type="button" class="rounded-lg p-1.5 text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 @endsection
 
@@ -276,34 +302,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewGrid = document.getElementById('grid-view');
     const viewTable = document.getElementById('table-view');
 
-    const setActiveButton = (activeBtn, inactiveBtn) => {
-        activeBtn.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
-        activeBtn.classList.add('bg-surface', 'shadow-sm', 'text-primary');
-        inactiveBtn.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
-        inactiveBtn.classList.remove('bg-surface', 'shadow-sm', 'text-primary');
-    };
-
-    if(btnTable && btnGrid) {
+    if (btnTable && btnGrid && viewGrid && viewTable) {
         btnTable.addEventListener('click', () => {
-            setActiveButton(btnTable, btnGrid);
-            viewGrid.classList.add('opacity-0');
-            setTimeout(() => {
-                viewGrid.classList.add('hidden');
-                if (viewTable) {
-                    viewTable.classList.remove('hidden');
-                    setTimeout(() => viewTable.classList.remove('opacity-0'), 50);
-                }
-            }, 300);
+            btnTable.classList.add('bg-surface', 'shadow-sm', 'text-primary');
+            btnTable.classList.remove('text-on-surface-variant');
+            
+            btnGrid.classList.remove('bg-surface', 'shadow-sm', 'text-primary');
+            btnGrid.classList.add('text-on-surface-variant');
+
+            viewGrid.classList.add('hidden');
+            viewTable.classList.remove('hidden');
+            setTimeout(() => viewTable.classList.remove('opacity-0'), 20);
         });
 
         btnGrid.addEventListener('click', () => {
-            setActiveButton(btnGrid, btnTable);
-            if (viewTable) viewTable.classList.add('opacity-0');
-            setTimeout(() => {
-                if (viewTable) viewTable.classList.add('hidden');
-                viewGrid.classList.remove('hidden');
-                setTimeout(() => viewGrid.classList.remove('opacity-0'), 50);
-            }, 300);
+            btnGrid.classList.add('bg-surface', 'shadow-sm', 'text-primary');
+            btnGrid.classList.remove('text-on-surface-variant');
+            
+            btnTable.classList.remove('bg-surface', 'shadow-sm', 'text-primary');
+            btnTable.classList.add('text-on-surface-variant');
+
+            viewTable.classList.add('hidden', 'opacity-0');
+            viewGrid.classList.remove('hidden');
         });
     }
 });

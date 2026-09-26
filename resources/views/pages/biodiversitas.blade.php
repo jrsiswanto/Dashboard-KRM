@@ -1,20 +1,28 @@
 @extends('layouts.app')
 
-@section('title', 'Koleksi Biodiversitas — Kekayaan Ekosistem Mangrove KRM Surabaya')
-@php($active = 'biodiversitas')
+{{-- 1. Ambil data Program ID 5 beserta relasi kontennya --}}
+@php
+    // Gunakan 'with' agar query lebih optimal (Eager Loading)
+    $program = \App\Models\Program::with('contents')->find(5); 
+    $active = 'biodiversitas';
+@endphp
+
+@section('title', $program->judul . ' — KRM Surabaya')
 
 @section('content')
 
+    {{-- 2. Hero Component menggunakan data Program utama --}}
     <x-hero
-        image="assets/BioDiversitas Hero.jpg"
-        title="Kekayaan Ekosistem Mangrove"
-        description="Jelajahi keanekaragaman flora dan fauna yang hidup dan berkembang di kawasan Kebun Raya Mangrove Surabaya. Rumah bagi beragam spesies mangrove pelindung pesisir."
+        :image="'assets/' . $program->gambar_utama"
+        :title="$program->judul"
+        :description="$program->deskripsi"
         primaryLabel="Lihat Program Kami"
         :primaryUrl="route('program')"
         secondaryLabel="Produk Olahan"
         :secondaryUrl="route('produk-olahan')"
     />
 
+    {{-- Info bar tetap statis atau bisa Anda dinamiskan juga nanti jika perlu --}}
     <x-info-bar :items="[
         ['label' => 'TOTAL SPESIES FLORA', 'value' => '42+'],
         ['label' => 'AREA KONSERVASI INTI', 'value' => '156 Ha'],
@@ -25,38 +33,39 @@
     <section style="padding-top: 96px;">
         <div class="container d-flex flex-column gap-5">
 
-            {{-- BioDiversitas 1: Rhizophora mucronata --}}
-            <div class="krm-split" data-animate="fade-up">
-                <div class="krm-split__image krm-card-plain p-0" style="overflow:hidden;">
-                    <img src="{{ asset('assets/BioDiversitas 1.jpg') }}" alt="Rhizophora mucronata (Bakau Kurap)" loading="lazy" style="width:100%;height:320px;object-fit:cover;display:block;">
-                </div>
-                <div>
-                    <h2 class="krm-section-title">Rhizophora mucronata (Bakau Kurap)</h2>
-                    <p class="krm-muted">Spesies mangrove utama dengan sistem akar tunjang (stilt roots) yang kokoh dan rimbun. Perakarannya berfungsi memecah gelombang laut, menstabilkan sedimen lumpur, serta menyediakan tempat berlindung dan berkembang biak bagi biota pesisir seperti ikan dan kepiting.</p>
-                </div>
-            </div>
+            {{-- 3. Looping data dari tabel program_contents --}}
+            @foreach($program->contents as $content)
+                <div class="krm-split" data-animate="fade-up">
+                    
+                    {{-- Logika agar layout gambar selang-seling (Kiri - Kanan - Kiri) --}}
+                    @if($loop->even)
+                        {{-- Layout Genap (Ke-2, Ke-4, dst): Teks di kiri, Gambar di kanan --}}
+                        <div class="order-2 order-md-1">
+                            <h2 class="krm-section-title">{{ $content->judul }}</h2>
+                            <p class="krm-muted">{{ $content->deskripsi }}</p>
+                        </div>
+                        <div class="krm-split__image order-1 order-md-2 krm-card-plain p-0" style="overflow:hidden;">
+                            <img src="{{ asset('assets/' . $content->gambar) }}" 
+                                 alt="{{ $content->judul }}" 
+                                 loading="lazy" 
+                                 style="width:100%;height:320px;object-fit:cover;display:block;">
+                        </div>
+                    @else
+                        {{-- Layout Ganjil (Ke-1, Ke-3, dst): Gambar di kiri, Teks di kanan --}}
+                        <div class="krm-split__image krm-card-plain p-0" style="overflow:hidden;">
+                            <img src="{{ asset('assets/' . $content->gambar) }}" 
+                                 alt="{{ $content->judul }}" 
+                                 loading="lazy" 
+                                 style="width:100%;height:320px;object-fit:cover;display:block;">
+                        </div>
+                        <div>
+                            <h2 class="krm-section-title">{{ $content->judul }}</h2>
+                            <p class="krm-muted">{{ $content->deskripsi }}</p>
+                        </div>
+                    @endif
 
-            {{-- BioDiversitas 2: Excoecaria agallocha --}}
-            <div class="krm-split" data-animate="fade-up">
-                <div class="order-2 order-md-1">
-                    <h2 class="krm-section-title">Excoecaria agallocha (Kayu Buta-Buta)</h2>
-                    <p class="krm-muted">Tanaman mangrove yang dikenal memiliki daya adaptasi dan ketahanan tinggi di zona pasang surut bagian dalam. Tajuk daunnya yang lebat berperan aktif sebagai benteng alami pelindung pesisir sekaligus penyerap karbon biru (blue carbon) yang sangat efektif.</p>
                 </div>
-                <div class="krm-split__image order-1 order-md-2 krm-card-plain p-0" style="overflow:hidden;">
-                    <img src="{{ asset('assets/BioDiversitas 2.jpg') }}" alt="Excoecaria agallocha (Kayu Buta-Buta)" loading="lazy" style="width:100%;height:320px;object-fit:cover;display:block;">
-                </div>
-            </div>
-
-            {{-- BioDiversitas 3: Avicennia marina --}}
-            <div class="krm-split" data-animate="fade-up">
-                <div class="krm-split__image krm-card-plain p-0" style="overflow:hidden;">
-                    <img src="{{ asset('assets/BioDiversitas 3.jpg') }}" alt="Avicennia marina (Api-Api Putih)" loading="lazy" style="width:100%;height:320px;object-fit:cover;display:block;">
-                </div>
-                <div>
-                    <h2 class="krm-section-title">Avicennia marina (Api-Api Putih)</h2>
-                    <p class="krm-muted">Spesies pelopor yang mampu tumbuh di garis pantai paling depan dengan kadar garam tinggi. Dilengkapi sistem akar napas (pneumatophores) yang mencuat ke atas permukaan tanah untuk menyerap oksigen langsung dari udara serta menahan abrasi secara optimal.</p>
-                </div>
-            </div>
+            @endforeach
 
         </div>
     </section>

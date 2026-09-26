@@ -1,19 +1,30 @@
 @extends('layouts.app')
 
-@section('title', 'Pirolisis — Dari Limbah Menjadi Energi | KRM Surabaya')
-@php($active = 'program')
+{{-- 1. Ambil data program Pirolisis (ID 1) dari database --}}
+@php
+    $program = \App\Models\Program::find(1);
+    $active = 'program';
+@endphp
+
+{{-- 2. Gunakan judul dari database untuk tag <title> --}}
+@section('title', $program->judul . ' | KRM Surabaya')
 
 @section('content')
 
+    {{-- 3. Komponen Hero menggunakan data dari database --}}
     <x-hero
-        image="assets/Pirolisis Hero.jpg"
-        title="Pirolisis: Dari Limbah Menjadi Energi"
-        description="Mengubah limbah biomassa dan sisa tanaman mangrove menjadi arang (biochar), bio-oil, dan syngas melalui proses pembakaran minim oksigen — mengurangi sampah kawasan sekaligus menghasilkan energi alternatif."
+        :image="'assets/' . $program->gambar_utama"
+        :title="$program->judul"
+        :description="$program->deskripsi"
         primaryLabel="Lihat Program Kami"
         :primaryUrl="route('program')"
         secondaryLabel="Pelajari Biodiversitas"
         :secondaryUrl="route('biodiversitas')"
     />
+
+    {{-- ========================================================= --}}
+    {{-- KONTEN DI BAWAH INI TETAP STATIS KHUSUS UNTUK PIROLISIS   --}}
+    {{-- ========================================================= --}}
 
     <x-info-bar :items="[
         ['label' => 'SUHU PROSES', 'value' => '300–600°C'],

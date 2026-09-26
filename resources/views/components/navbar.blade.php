@@ -1,5 +1,11 @@
 @props(['active' => ''])
 
+{{-- Material Symbols --}}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet"
+    >
+
 <header class="krm-navbar" id="krmNavbar">
     <nav class="navbar navbar-expand-lg">
         <div class="container krm-navbar__inner">
@@ -46,6 +52,16 @@
                     <li><a href="{{ route('csr') }}" class="{{ $active === 'csr' ? 'is-active' : '' }}">CSR</a></li>
                     <li><a href="{{ route('karbon-trading') }}" class="{{ $active === 'karbon-trading' ? 'is-active' : '' }}">Karbon Trading</a></li>
                     <li><a href="{{ route('hubungi-kami') }}" class="{{ $active === 'hubungi-kami' ? 'is-active' : '' }}" style="text-decoration: none;">Hubungi Kami</a></li>
+                    <li>
+    <a href="{{ route('admin.dashboard') }}" 
+       class="flex h-8 w-8 items-center justify-center rounded-full {{ $active === 'admin.dashboard' ? 'ring-2 ring-offset-2 ring-primary' : '' }}" 
+       style="text-decoration: none;"
+       title="Admin">
+        <span class="material-symbols-outlined text-[18px] text-on-primary">
+            person
+        </span>
+    </a>
+</li>
                 </ul>
             </div>
         </div>
