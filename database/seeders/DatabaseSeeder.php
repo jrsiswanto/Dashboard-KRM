@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
             ProgramContentSeeder::class, // Tambahkan baris ini
             ActivitySeeder::class, // Tambahkan baris ini
             MitraSeeder::class,
-            UserSeeder::class, // Tambahkan baris ini
+            UserSeeder::class, 
+            ContactSeeder::class,// Tambahkan baris ini
+            PengajuanCsrSeeder::class, // Tambahkan baris ini
             ]);
         // 1. Membuat satu akun Admin spesifik untuk uji coba Login
         User::factory()->create([

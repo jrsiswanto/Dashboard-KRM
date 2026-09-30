@@ -294,7 +294,7 @@
 
     {{-- ==================== MODAL KONFIRMASI HAPUS (HTML5 DIALOG) ==================== --}}
     <dialog id="deleteModal" class="m-auto w-full max-w-sm border-0 bg-transparent p-0 rounded-xl backdrop:bg-black/50 backdrop:backdrop-blur-sm">
-        <div class="w-full max-w-sm overflow-hidden rounded-xl bg-surface-containerp-6 shadow-lg">
+        <div class="w-full max-w-sm overflow-hidden rounded-xl bg-surface-container p-6 shadow-lg">
 
             <div class="flex flex-col items-center gap-2 text-center">
                 <div class="flex h-12 w-12 items-center justify-center rounded-full bg-error-container text-on-error-container">

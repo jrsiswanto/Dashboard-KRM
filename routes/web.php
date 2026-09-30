@@ -1,41 +1,82 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MitraController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramAdminController;
 use App\Http\Controllers\ProgramContentController;
-use App\Http\Controllers\MitraController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
-// --- Rute Halaman Publik ---
-Route::view('/', 'pages.home')->name('home');
-Route::view('/program', 'pages.program')->name('program');
-Route::view('/biodiversitas', 'pages.biodiversitas')->name('biodiversitas');
-Route::view('/produk-olahan', 'pages.produk-olahan')->name('produk-olahan');
-Route::view('/csr', 'pages.csr')->name('csr');
-Route::view('/karbon-trading', 'pages.karbon-trading')->name('karbon-trading');
-Route::view('/pirolisis', 'pages.pirolisis')->name('pirolisis');
-Route::view('/solar-cell', 'pages.solar-cell')->name('solar-cell');
-Route::view('/silvo-fishery', 'pages.silvo-fishery')->name('silvo-fishery');
-Route::view('/terangin', 'pages.terangin')->name('terangin');
-Route::view('/hubungi-kami', 'pages.hubungi-kami')->name('hubungi-kami');
+Route::controller(PageController::class)->group(function () {
+    Route::get('/', 'home')->name('home');
+    Route::get('/program', 'program')->name('program');
+    Route::get('/biodiversitas', 'biodiversitas')->name('biodiversitas');
+    Route::get('/produk-olahan', 'produkOlahan')->name('produk-olahan');
+    Route::get('/csr', 'csr')->name('csr');
+    Route::get('/karbon-trading', 'karbonTrading')->name('karbon-trading');
+    Route::get('/pirolisis', 'pirolisis')->name('pirolisis');
+    Route::get('/solar-cell', 'solarCell')->name('solar-cell');
+    Route::get('/silvo-fishery', 'silvoFishery')->name('silvo-fishery');
+    Route::get('/terangin', 'terangin')->name('terangin');
+    Route::get('/hubungi-kami', 'hubungiKami')->name('hubungi-kami');
+});
 
+// Route untuk fitur CSR (GET, POST, PUT, DELETE)
+Route::controller(MitraController::class)->prefix('admin/csr')->group(function () {
+    Route::get('/', 'index')->name('admin.csr');
+    Route::post('/', 'store')->name('admin.csr.store');
+    Route::put('/{id}', 'update')->name('admin.csr.update');
+    Route::delete('/{id}', 'destroy')->name('admin.csr.destroy');
+});
 
-// Panggil menggunakan Controller agar datanya dikirim
-Route::get('/admin-csr', [MitraController::class, 'index'])->name('admin.csr');
+Route::get('/tambah-program', [ProgramAdminController::class, 'index'])->name('tambah-program');
+Route::get('/hubungi-kami', [ContactController::class, 'index'])
+    ->name('hubungi-kami');
 
-Route::get('/manajemen', function () {
-    return view('pages.admin.manajemen');
-})->name('manajemen');
+Route::post('/hubungi-kami', [ContactController::class, 'store'])
+    ->name('hubungi-kami.store');
 
-// --- Rute Auth ---
+Route::prefix('admin')->group(function () {
+
+    Route::get('/pesan', [ContactController::class, 'adminIndex'])
+        ->name('admin.contact');
+
+    Route::patch('/pesan/{contact}/dibaca', [ContactController::class, 'markAsRead'])
+        ->name('admin.contact.read');
+
+    Route::delete('/pesan/{contact}', [ContactController::class, 'destroy'])
+        ->name('admin.contact.destroy');
+
+});
+
+Route::put('/admin/csr/pengajuan/{id}/read', [MitraController::class, 'readPengajuan'])
+    ->name('admin.csr.pengajuan.read');
+
+Route::delete('/admin/csr/pengajuan/{id}', [MitraController::class, 'destroyPengajuan'])
+    ->name('admin.csr.pengajuan.destroy');
+
+Route::post('/csr/pengajuan', [MitraController::class, 'submitPengajuan'])
+    ->name('csr.pengajuan.store');
+
 Route::middleware('auth')->group(function () {
     Route::get('/admin-dashboard', [AdminController::class, 'Dasboard'])->name('admin.dashboard');
-    Route::get('/manajemen', [UserController::class, 'index'])->name('manajemen');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Route Manajemen Pengguna (CRUD Lengkap)
+    Route::controller(UserController::class)->prefix('admin/manajemen')->group(function () {
+        Route::get('/', 'index')->name('manajemen');
+        Route::post('/', 'store')->name('manajemen.store');
+        Route::put('/{id}', 'update')->name('manajemen.update');
+        Route::delete('/{id}', 'destroy')->name('manajemen.destroy');
+    });
+
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
+    });
 });
 
 Route::controller(AdminController::class)->prefix('admin/aktivitas')->as('activity.')->group(function () {
@@ -45,15 +86,12 @@ Route::controller(AdminController::class)->prefix('admin/aktivitas')->as('activi
     Route::delete('/{id}', 'activityDestroy')->name('destroy');
 });
 
-// --- Rute Admin Program (Diperbaiki) ---
-// Arahkan /tambah-program langsung ke method index Controller
-Route::get('/tambah-program', [ProgramAdminController::class, 'index'])->name('tambah-program');
-Route::get('/admin/program/api/{id}', [App\Http\Controllers\ProgramAdminController::class, 'getProgramData']);
+Route::controller(ProgramAdminController::class)->prefix('admin/program')->group(function () {
+    Route::get('/', 'index')->name('admin.program');
+    Route::get('/api/{id}', 'getProgramData');
+    Route::post('/save', 'save')->name('admin.program.save');
 
-Route::prefix('admin')->group(function () {
-    Route::get('/program', [ProgramAdminController::class, 'index'])->name('admin.program');
-    Route::get('/program/api/{id}', [ProgramAdminController::class, 'getProgramData']);
-    Route::post('/program/save', [ProgramAdminController::class, 'save'])->name('admin.program.save');
+    Route::delete('/{id}', 'destroy')->name('admin.program.destroy');
 });
 
 Route::resource('program_content', ProgramContentController::class);

@@ -23,43 +23,102 @@
                             <p class="text-muted small">Isi formulir di bawah ini untuk mendiskusikan peluang kemitraan CSR, penanaman pohon, atau kolaborasi ESG khusus untuk perusahaan Anda.</p>
                         </div>
 
-                        <form action="#" method="POST">
-                            @csrf
-                            <div class="row g-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label small fw-semibold">Nama Lengkap</label>
-                                    <input type="text" name="nama" class="form-control" placeholder="John Doe" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label small fw-semibold">Nama Perusahaan</label>
-                                    <input type="text" name="perusahaan" class="form-control" placeholder="PT. Inovasi Hijau" required>
-                                </div>
-                            </div>
+                        <form action="{{ route('csr.pengajuan.store') }}" method="POST">
+    @csrf
 
-                            <div class="mb-3">
-                                <label class="form-label small fw-semibold">Email Korporat</label>
-                                <input type="email" name="email" class="form-control" placeholder="john@company.com" required>
-                            </div>
+    <div class="row g-3 mb-3">
+        <div class="col-md-6">
+            <label class="form-label small fw-semibold">
+                Nama Lengkap
+            </label>
 
-                            <div class="mb-3">
-                                <label class="form-label small fw-semibold">Bentuk Program / Kebutuhan</label>
-                                <select name="kategori" class="form-select">
-                                    <option value="bibit">Penanaman Bibit Mangrove</option>
-                                    <option value="edukasi">Program Edukasi & Pemberdayaan Warga</option>
-                                    <option value="offset">Kemitraan Offset Karbon</option>
-                                    <option value="lainnya">Kemitraan Lainnya</option>
-                                </select>
-                            </div>
+            <input
+                type="text"
+                name="nama"
+                class="form-control"
+                placeholder="John Doe"
+                value="{{ old('nama') }}"
+                required
+            >
+        </div>
 
-                            <div class="mb-4">
-                                <label class="form-label small fw-semibold">Pesan / Objektif CSR &amp; ESG</label>
-                                <textarea name="pesan" rows="4" class="form-control" placeholder="Ceritakan singkat tentang target program keberlanjutan perusahaan Anda..." required></textarea>
-                            </div>
+        <div class="col-md-6">
+            <label class="form-label small fw-semibold">
+                Nama Perusahaan
+            </label>
 
-                            <button type="submit" class="btn w-100 py-2 fw-semibold text-white" style="background-color: var(--krm-forest, #14855e); border-radius: 8px;">
-                                Kirim Permintaan
-                            </button>
-                        </form>
+            <input
+                type="text"
+                name="perusahaan"
+                class="form-control"
+                placeholder="PT. Inovasi Hijau"
+                value="{{ old('perusahaan') }}"
+                required
+            >
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label small fw-semibold">
+            Email Korporat
+        </label>
+
+        <input
+            type="email"
+            name="email"
+            class="form-control"
+            placeholder="john@company.com"
+            value="{{ old('email') }}"
+            required
+        >
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label small fw-semibold">
+            Bentuk Program / Kebutuhan
+        </label>
+
+        <select name="kategori" class="form-select" required>
+            <option value="bibit" {{ old('kategori') === 'bibit' ? 'selected' : '' }}>
+                Penanaman Bibit Mangrove
+            </option>
+
+            <option value="edukasi" {{ old('kategori') === 'edukasi' ? 'selected' : '' }}>
+                Program Edukasi & Pemberdayaan Warga
+            </option>
+
+            <option value="offset" {{ old('kategori') === 'offset' ? 'selected' : '' }}>
+                Kemitraan Offset Karbon
+            </option>
+
+            <option value="lainnya" {{ old('kategori') === 'lainnya' ? 'selected' : '' }}>
+                Kemitraan Lainnya
+            </option>
+        </select>
+    </div>
+
+    <div class="mb-4">
+        <label class="form-label small fw-semibold">
+            Pesan / Objektif CSR &amp; ESG
+        </label>
+
+        <textarea
+            name="pesan"
+            rows="4"
+            class="form-control"
+            placeholder="Ceritakan singkat tentang target program keberlanjutan perusahaan Anda..."
+            required
+        >{{ old('pesan') }}</textarea>
+    </div>
+
+    <button
+        type="submit"
+        class="btn w-100 py-2 fw-semibold text-white"
+        style="background-color: var(--krm-forest, #14855e); border-radius: 8px;"
+    >
+        Kirim Permintaan
+    </button>
+</form>
                     </div>
                 </div>
             </div>

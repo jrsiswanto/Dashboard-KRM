@@ -87,4 +87,15 @@ class ProgramAdminController extends Controller
 
         return redirect()->back()->with('success', 'Data program berhasil disimpan!');
     }
+
+    public function destroy($id)
+{
+    $program = Program::findOrFail($id);
+    
+    // Opsional: Hapus gambar utama & gambar di dalam contents jika ada sebelum menghapus data dari database
+    
+    $program->delete(); // Ini otomatis akan menghapus data dari DB (pastikan relasi / cascade diset jika perlu)
+
+    return redirect()->route('admin.program')->with('success', 'Program berhasil dihapus.');
+}
 }

@@ -169,7 +169,21 @@
                     <span class="material-symbols-outlined">group</span>
                     <span class="text-sm">Manajemen Pengguna</span>
                 </a>
+                {{-- Pesan Masuk --}}
+<a href="{{ route('admin.contact') }}"
+    class="flex items-center gap-unit-md rounded-xl px-unit-md py-unit-sm transition-all
+    {{ request()->routeIs('admin.contact*')
+        ? 'bg-primary text-on-primary'
+        : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface' }}">
 
+    <span class="material-symbols-outlined">
+        mail
+    </span>
+
+    <span class="text-sm">
+        Pesan Masuk
+    </span>
+</a>
             </div>
 
         </nav>
